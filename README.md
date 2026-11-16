@@ -418,6 +418,7 @@ Nothing has been deployed. The project is local-only by the owner's decision. Wh
 - [ ] **(you)** Projects: confirm which to include; add real screenshots (`public/images/projects/<slug>/`, listed in `gallery` with `width`/`height`/`alt`, plus `thumbnail`), live URLs, public repository URLs, role, and verified features → `src/data/projects.js`.
 - [ ] **(you)** The Wild Oasis: confirm its origin and describe it accordingly (course-based work must be labelled as such).
 - [ ] **(you)** TutorHub: confirm its technologies.
+- [ ] Remove the temporary hero notice: set `notice: ""` in `src/data/personal.js` (nothing renders when it is empty), or replace it with a message that has no relative time such as "today".
 - [ ] Run `npm run dev` and confirm no dashed "Dev placeholder" box remains on any page.
 
 ## 2. Repository (optional but recommended)

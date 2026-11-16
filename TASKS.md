@@ -795,6 +795,17 @@ _Not performed — the project is local-only by owner decision. See README.md �
 
 **Results:** routes 21/21 correct; anchors 8/8; responsive 126/126 per browser; axe 0 violations (28 audits per browser); keyboard order logical with visible focus and no obscured stops; reduced motion fully static; 0 unexpected console messages or failed requests.
 
+**Temporary notice (owner request, 2026-11-17):** the hero shows an optional notice, `personal.notice` in `src/data/personal.js`: "Portfolio update in progress — some sections are still being finalised." It renders as its own sentence below the eyebrow (small, muted, accent dot) and **renders nothing when the field is `""`** — verified with a build using an empty field. It replaced an earlier hand-edit that put a time-relative message ("by 8:00 PM today") inside the eyebrow with `<br />` tags; that text no longer exists in source or build. The eyebrow now stays on one line at every width from 320 to 1920 px (measured); below 375 px its accent rule is 16 px with an 8 px gap instead of 24/12 px. Checked by screenshot in light and dark at 320, 375 and 1440 px. **Remove or empty the notice before launch.**
+
+**Final re-run on the build with the notice (Chrome 157 + Edge 157, widths 320–1920 incl. 1920):** see the final QA report; results recorded below once complete.
+
+**Test-harness false positives identified (not site bugs):**
+- "Related projects: none" — the harness selector expected the grid to be a sibling of the heading, but the heading sits inside a `<header>`; with the correct selector every case study shows 2 related projects.
+- "Skip link obscured by header" — the skip link is intentionally fixed above the header when focused.
+- "Focused card out of view / opacity 0.99" — sampled 450 ms after a long smooth focus-scroll or fade; with a 1.1 s wait every focus stop is in view and fully visible.
+- "26/26 reveals hidden" and stalled icons in the in-app browser pane — that pane is frame-throttled (1 frame/s) when unfocused; full-frame-rate headless Chrome and Edge show all reveals complete.
+- "Back link didn't scroll" in the first run was **real** (fixed above), confirmed by isolating smooth scrolling.
+
 **Performance (local, headless Chrome; 3 runs, median [range]):** LCP desktop — home 0.94 s, case study 0.22 s, 404 0.21 s; LCP throttled mobile (4× CPU, slow 4G) — home 2.47 s [2.09–5.70], case study 1.96 s [1.27–2.53], 404 1.04 s. CLS ≤ 0.0011 everywhere. JS 241 KB transferred per route; one 47 KB preloaded font; no content images yet. Interaction latency (throttled mobile): theme toggle and menu 0.17–0.70 s, first theme toggle up to 3.4 s in one run — high variance; real-device check needed. Lighthouse not available.
 
 ---

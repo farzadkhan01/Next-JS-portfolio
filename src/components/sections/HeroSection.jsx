@@ -22,11 +22,24 @@ export default function HeroSection() {
       </div>
 
       <Container className="pt-16 pb-section sm:pt-24 lg:pt-32">
-        <p className="enter flex items-center gap-3 text-caption text-muted uppercase">
-          <span aria-hidden="true" className="h-px w-6 bg-accent" />
-          {personal.name} · {personal.title} <br />
-          <br /> {personal.des}
+        {/* Tighter rule/gap below 375px keeps the eyebrow on one line at 320px. */}
+        <p className="enter flex items-center gap-2 text-caption text-muted uppercase xs:gap-3">
+          <span aria-hidden="true" className="h-px w-4 shrink-0 bg-accent xs:w-6" />
+          {personal.name} · {personal.title}
         </p>
+
+        {personal.notice && (
+          <p
+            className="enter mt-4 flex max-w-xl items-start gap-2.5 text-small text-pretty text-muted"
+            style={{ "--enter-delay": "40ms" }}
+          >
+            <span
+              aria-hidden="true"
+              className="mt-[0.45em] size-1.5 shrink-0 rounded-full bg-accent"
+            />
+            {personal.notice}
+          </p>
+        )}
 
         <h1
           id="hero-title"

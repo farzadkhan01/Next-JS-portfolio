@@ -7,7 +7,12 @@
 export const personal = {
   name: "Farzad Khan",
   title: "Frontend Engineer",
-  des: `I'm currently working on improving my portfolio. It will be back online with a fresh new look by 8:00 PM today.`,
+
+  // Optional site-wide notice shown under the hero eyebrow. Set to "" to hide
+  // it — nothing renders when empty. Avoid relative times ("today", "by 8 PM"):
+  // the site is pre-rendered, so the text does not change until the next build.
+  notice: "Portfolio update in progress — some sections are still being finalised.",
+
   positioning: "Frontend Engineer with Full-Stack JavaScript Capabilities",
   location: "Mingora, Khyber Pakhtunkhwa, Pakistan",
   // Same location, split for structured data (schema.org PostalAddress).
