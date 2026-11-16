@@ -12,7 +12,11 @@ export default function HeroSection() {
   const afterHeadline = words.length * 70 + 300;
 
   return (
-    <section id="top" aria-labelledby="hero-title" className="relative isolate overflow-hidden">
+    <section
+      id="top"
+      aria-labelledby="hero-title"
+      className="relative isolate overflow-hidden"
+    >
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         <div data-parallax className="cover-grid absolute inset-0 opacity-60" />
       </div>
@@ -20,10 +24,14 @@ export default function HeroSection() {
       <Container className="pt-16 pb-section sm:pt-24 lg:pt-32">
         <p className="enter flex items-center gap-3 text-caption text-muted uppercase">
           <span aria-hidden="true" className="h-px w-6 bg-accent" />
-          {personal.name} · {personal.title}
+          {personal.name} · {personal.title} <br />
+          <br /> {personal.des}
         </p>
 
-        <h1 id="hero-title" className="mt-6 max-w-[13ch] text-hero text-balance sm:mt-8">
+        <h1
+          id="hero-title"
+          className="mt-6 max-w-[13ch] text-hero text-balance sm:mt-8"
+        >
           {words.map((word, index) => (
             <span key={`${word}-${index}`}>
               <span className="word-mask">
@@ -55,7 +63,12 @@ export default function HeroSection() {
             <Button href={hero.primaryCta.href} size="lg" icon={ArrowRight}>
               {hero.primaryCta.label}
             </Button>
-            <Button href={hero.secondaryCta.href} size="lg" variant="secondary" icon={ArrowDown}>
+            <Button
+              href={hero.secondaryCta.href}
+              size="lg"
+              variant="secondary"
+              icon={ArrowDown}
+            >
               {hero.secondaryCta.label}
             </Button>
           </div>
@@ -67,7 +80,9 @@ export default function HeroSection() {
         >
           {hero.meta.map((item) => (
             <div key={item.label}>
-              <dt className="text-caption text-muted uppercase">{item.label}</dt>
+              <dt className="text-caption text-muted uppercase">
+                {item.label}
+              </dt>
               <dd className="mt-1.5 font-medium">{item.value}</dd>
             </div>
           ))}

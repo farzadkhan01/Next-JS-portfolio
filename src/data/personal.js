@@ -7,10 +7,15 @@
 export const personal = {
   name: "Farzad Khan",
   title: "Frontend Engineer",
+  des: `I'm currently working on improving my portfolio. It will be back online with a fresh new look by 8:00 PM today.`,
   positioning: "Frontend Engineer with Full-Stack JavaScript Capabilities",
   location: "Mingora, Khyber Pakhtunkhwa, Pakistan",
   // Same location, split for structured data (schema.org PostalAddress).
-  address: { locality: "Mingora", region: "Khyber Pakhtunkhwa", countryCode: "PK" },
+  address: {
+    locality: "Mingora",
+    region: "Khyber Pakhtunkhwa",
+    countryCode: "PK",
+  },
   shortLocation: "Pakistan",
   workPreference: "Remote / International Opportunities",
   seoDescription:
