@@ -1,0 +1,166 @@
+@import "tailwindcss";
+@import "../styles/design-tokens.css";
+
+/* `dark:` utilities follow the data-theme attribute, not the OS setting. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Map theme variables to Tailwind utilities (bg-surface, text-muted, …). */
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-foreground: var(--accent-soft-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-glass-border: var(--glass-border);
+
+  --shadow-soft: var(--elevation-1);
+  --shadow-raised: var(--elevation-2);
+  --shadow-float: var(--elevation-float);
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+/* Subtle glass surface with a solid fallback where backdrop-filter is unsupported. */
+@utility glass {
+  background-color: var(--surface);
+  border-color: var(--glass-border);
+
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    background-color: var(--glass-bg);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+  }
+}
+
+/* Faint editorial grid used behind the hero and typographic project covers. */
+@utility cover-grid {
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+  mask-image: radial-gradient(ellipse at 70% 30%, black 10%, transparent 75%);
+  opacity: 0.7;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 6rem;
+  }
+
+  /* Smooth scrolling only after the page has loaded (NavbarShell sets
+     data-smooth-scroll). Loading straight into a #section must jump
+     instantly: a smooth initial scroll gets interrupted while the page is
+     still settling (hydration, font swap, ScrollTrigger refresh). */
+  @media (prefers-reduced-motion: no-preference) {
+    html[data-smooth-scroll] {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--accent-soft);
+    color: var(--foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+/* ------------------------------------------------------------- Motion --- */
+
+/* Theme switch: no colour transitions while the theme attribute flips
+   (set/cleared by applyTheme in src/lib/theme.js). */
+[data-theme-switching] *:not([data-theme-icon]),
+[data-theme-switching] *::before,
+[data-theme-switching] *::after {
+  transition: none !important;
+}
+
+/* Scroll reveals: hidden only between first paint and GSAP taking over.
+   See src/lib/animations/reveal.js for the safety timeout. */
+[data-reveal-state="pending"] [data-reveal] {
+  opacity: 0;
+}
+
+/* Above-the-fold entrances run in CSS so the hero never waits for JavaScript.
+   Usage: class="enter" with style="--enter-delay: 200ms". */
+@keyframes enter-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+}
+
+@keyframes enter-cover {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes word-rise {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+@utility enter {
+  animation: enter-rise 0.8s var(--ease-out-soft) var(--enter-delay, 0ms) both;
+}
+
+@utility enter-cover {
+  animation: enter-cover 1s var(--ease-out-soft) var(--enter-delay, 0ms) both;
+}
+
+/* Editorial headline reveal: each word rises out of its own mask.
+   The padding keeps descenders (g, p, y) inside the mask. */
+@utility word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+
+  & > span {
+    display: inline-block;
+    animation: word-rise 0.9s var(--ease-out-soft) calc(var(--word-index, 0) * 70ms + 80ms) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .enter-cover,
+  .word-mask > span {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
