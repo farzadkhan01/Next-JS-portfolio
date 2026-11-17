@@ -18,9 +18,10 @@ All content must represent Farzad Khan accurately. Never invent professional exp
 | Location                 | Mingora, Khyber Pakhtunkhwa, Pakistan                     |
 | Work Preference          | Remote / International Opportunities                      |
 | Availability             | Configurable                                              |
-| Experience               | Use verified existing portfolio information               |
-| Email                    | Owner will provide/verify                                 |
-| Phone                    | Optional — owner will provide if required                 |
+| Experience               | Frontend Developer at CreaTech IT Solutions — 3+ years    |
+| Email                    | devbyfarzad.khan@gmail.com (approved, published)          |
+| Phone / WhatsApp         | Configurable but hidden — real number not yet provided    |
+| Portrait                 | `public/images/profile/farzad-khan.webp` (owner-supplied) |
 
 Do not expose personal contact details unless explicitly approved by the owner.
 
@@ -248,71 +249,60 @@ The project showcase must prioritize quality, clarity, and practical implementat
 
 The owner will independently add, update, and remove projects.
 
-## Initial Project Candidates
+## Approved Project Showcase
 
-These are candidates from the owner's previous work. Their final inclusion and details must be confirmed.
+Source of truth: `src/data/projects.js`. Order and visibility are controlled
+there (`visible`, `showcase`, `order`). Technologies were verified from the
+local source code or, for static sites, from the scripts the live site loads.
 
-### Project 1 — TutorHub
+### Selected Projects (main showcase — each has a case study)
 
-**Category:** SaaS / Full-Stack Web Application
+| # | Project | Category | Label | Live URL |
+| - | ------- | -------- | ----- | -------- |
+| 1 | Cali Personal Injury Lawyer | Legal Services / Website Development | Concept project | https://calipersonalinjurylawyer.com/ |
+| 2 | Review Top Lawyers | Legal Directory / Web Application | — | https://reviewtoplawyers.com/ |
+| 3 | Tour De Swat | Tourism / Web Application | Internal tool (in development) | https://tour-de-swat.vercel.app/ (sign-in page) |
+| 4 | STORI | Healthcare / Rehabilitation Website | — | https://stori.pk/ |
+| 5 | World CoMedia | Professional Services / Law Firm Website | — | https://worldcomedia.com/ |
 
-**Known Features:**
+Content rules for these projects:
 
-- Google Authentication.
-- Role-based authentication.
-- Student and tutor dashboards.
-- Tutor search and filtering.
-- Booking workflow.
-- Session scheduling.
-- Google Meet integration.
-- Session rescheduling.
-- Profile management.
-- Notifications.
-- Settings.
+- **Cali Personal Injury Lawyer** is a concept project. Do not present
+  attorneys, case results or reviews on the site as real.
+- **Review Top Lawyers** contains sample/test lawyer records. Screenshots must
+  avoid them; do not describe the directory as populated with real firms.
+- **Tour De Swat** is a private, authenticated staff dashboard. Features listed
+  were confirmed by inspecting the live dashboard with an authorised account
+  (2026-11-16) and against its local source. It contains test and sample
+  records, so screenshot figures are not business results. Screenshots blur all
+  guest, partner and account names, emails and phone numbers; the Team & Access
+  (account/password) tab and print views are never shown. The public URL is
+  only the sign-in page, so its link is labelled "Sign-in page".
+- **STORI** — do not copy the business's contact details into this portfolio.
+- **World CoMedia** — a law firm website; describe the implementation only.
 
-**Content Direction:**
+### Additional Projects (secondary section — no case studies)
 
-Present TutorHub as a tutoring platform designed to simplify the relationship between students and tutors through discovery, booking, and session management.
+| Project | Category | Label | Live URL |
+| ------- | -------- | ----- | -------- |
+| Printing New York | Printing Services Website | — | https://printingnewyorkby.netlify.app/ |
+| School B | Educational Resource Website | Academic project | https://schoolb.netlify.app/ |
 
-Do not claim payment processing is implemented. Payments were intentionally postponed.
+Hide either one by setting `visible: false`.
 
-### Project 2 — The Wild Oasis
+### Retired Projects
 
-**Category:** Hospitality / Booking Application
+TutorHub, The Wild Oasis and Nationwide Financial were removed from the active
+showcase. Their entries remain in `src/data/projects.js` with
+`visible: false`; their routes return 404 and they are excluded from the
+sitemap, metadata and navigation.
 
-**Content Direction:**
+### Screenshots
 
-Highlight the cabin booking experience, application functionality, user interface, and technical implementation.
-
-Verify the exact features and the distinction between the dashboard and marketing website before publishing.
-
-### Project 3 — Review Top Lawyers
-
-**Category:** Professional Services / Lawyer Directory
-
-**Content Direction:**
-
-Showcase the professional directory experience, lawyer discovery, structured content, and administrative functionality only to the extent actually implemented.
-
-Verify backend technology and completed features before making technical claims.
-
-### Project 4 — Nationwide Financial
-
-**Category:** Business / Financial Consulting Website
-
-**Content Direction:**
-
-Highlight professional service presentation, responsive design, clear navigation, and conversion-focused pages.
-
-### Project 5 — California Personal Injury Lawyer
-
-**Category:** Legal Services Website
-
-**Content Direction:**
-
-Highlight the visual direction, professional presentation, responsive experience, and implementation quality.
-
-Verify deployment and project completion status before publishing.
+Real screenshots of the public live sites, stored as WebP (1440×900) under
+`public/images/projects/<slug>/`. No stock or generated imagery. Tour De Swat
+has 8 desktop screenshots (1440×900) and 2 mobile screenshots (585×1266)
+captured inside the live dashboard, with personal data blurred.
 
 ## Project Content Requirements
 
@@ -371,7 +361,22 @@ Avoid turning every case study into a generic feature checklist.
 
 Present employment history and professional development accurately.
 
-Use the existing portfolio as the initial reference.
+## Approved Content
+
+Source of truth: `src/data/experience.js`.
+
+**Experience**
+
+- Frontend Developer — CreaTech IT Solutions — 3+ years.
+  No dates or responsibilities are published until the owner supplies them.
+
+**Education** (no years are published)
+
+1. Matriculation — Al-Madina Model School & College, Swat.
+2. FSc — Computer Science — Jahanzeb College.
+3. BS Information Technology (BS IT) — in progress.
+
+## Owner Verification
 
 The owner will verify:
 
@@ -525,10 +530,18 @@ Alternative:
 
 ## Contact Methods
 
-- Email.
-- LinkedIn.
-- GitHub.
-- Other approved professional profiles.
+Configured in `src/data/personal.js` (`contact`) and `src/data/social-links.js`.
+A method appears only when its value is set.
+
+| Method    | Status    | Value / Notes |
+| --------- | --------- | ------------- |
+| Email     | Published | devbyfarzad.khan@gmail.com (`mailto:`) |
+| Phone     | Hidden    | Placeholder number supplied; do not publish until the real number is provided (`tel:`) |
+| WhatsApp  | Hidden    | Same as phone (`https://wa.me/<digits>`) |
+| GitHub    | Published | https://github.com/farzadkhan01 |
+| Facebook  | Published | https://www.facebook.com/rehan.tabassum.39 |
+| Instagram | Published | https://www.instagram.com/its_farzadkhanx/ |
+| LinkedIn  | Hidden    | URL not yet provided |
 
 ## Optional Contact Form
 
@@ -575,13 +588,9 @@ Suggested closing line:
 
 All social URLs must be centrally configurable.
 
-Supported fields:
-
-- LinkedIn.
-- GitHub.
-- Email.
-- Portfolio URL.
-- Other professional platforms.
+Supported fields: GitHub, LinkedIn, Facebook, Instagram (see the table in
+section 13). Each entry has `label`, `url` and `icon`; an empty `url` hides it.
+Brand icons come from Simple Icons (CC0) via `src/components/ui/BrandIcon.jsx`.
 
 Do not invent URLs.
 

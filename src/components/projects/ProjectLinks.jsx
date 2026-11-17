@@ -16,7 +16,7 @@ export default function ProjectLinks({ project, includeCaseStudy = true, size = 
         srSuffix: `: ${project.title}`,
       },
     project.liveUrl && {
-      label: "Live site",
+      label: project.liveLabel || "Live site",
       href: project.liveUrl,
       variant: includeCaseStudy ? "secondary" : "primary",
       icon: ArrowUpRight,

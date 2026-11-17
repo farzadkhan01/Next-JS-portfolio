@@ -14,6 +14,7 @@ const STATUS_LABELS = {
 export default function CaseStudyHero({ project, index }) {
   const meta = [
     { label: "Category", value: project.category },
+    project.label && { label: "Type", value: project.label },
     project.role && { label: "Role", value: project.role },
     project.status && { label: "Status", value: STATUS_LABELS[project.status] ?? project.status },
   ].filter(Boolean);

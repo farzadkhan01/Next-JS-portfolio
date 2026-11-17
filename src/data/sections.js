@@ -18,11 +18,15 @@ export const sections = {
     id: "projects",
     eyebrow: "Selected Projects",
     title: "Work I've built",
+    additionalTitle: "Additional Projects",
+    additionalDescription: "Smaller websites and an academic project, shown for range.",
   },
   experience: {
     id: "experience",
-    eyebrow: "Experience",
-    title: "Professional experience",
+    eyebrow: "Background",
+    title: "Experience & Education",
+    experienceHeading: "Professional experience",
+    educationHeading: "Education",
   },
   workflow: {
     id: "process",

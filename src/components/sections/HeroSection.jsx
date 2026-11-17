@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowDown, ArrowRight } from "lucide-react";
 
 import Button from "@/components/ui/Button";
@@ -22,6 +23,22 @@ export default function HeroSection() {
       </div>
 
       <Container className="pt-16 pb-section sm:pt-24 lg:pt-32">
+        <div className="lg:grid lg:grid-cols-12 lg:items-end lg:gap-10">
+        <div className="lg:col-span-8">
+        {/* Compact portrait on phones and tablets; the framed version is on the right at lg+. */}
+        {personal.profileImage && (
+          <div className="enter-cover mb-6 size-16 overflow-hidden rounded-2xl border border-border bg-surface-secondary sm:mb-8 sm:size-20 lg:hidden">
+            <Image
+              src={personal.profileImage.src}
+              alt={personal.profileImage.alt}
+              width={personal.profileImage.width}
+              height={personal.profileImage.height}
+              sizes="80px"
+              className="size-full object-cover"
+            />
+          </div>
+        )}
+
         {/* Tighter rule/gap below 375px keeps the eyebrow on one line at 320px. */}
         <p className="enter flex items-center gap-2 text-caption text-muted uppercase xs:gap-3">
           <span aria-hidden="true" className="h-px w-4 shrink-0 bg-accent xs:w-6" />
@@ -61,6 +78,27 @@ export default function HeroSection() {
             .
           </span>
         </h1>
+        </div>
+
+        {personal.profileImage && (
+          <figure
+            className="enter-cover hidden lg:col-span-4 lg:block"
+            style={{ "--enter-delay": "200ms" }}
+          >
+            <div className="rounded-3xl border border-border bg-surface p-2 shadow-float">
+              <div className="relative aspect-square overflow-hidden rounded-2xl bg-surface-secondary">
+                <Image
+                  src={personal.profileImage.src}
+                  alt={personal.profileImage.alt}
+                  fill
+                  sizes="400px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </figure>
+        )}
+        </div>
 
         <div className="mt-10 grid gap-8 lg:mt-14 lg:grid-cols-12 lg:items-end">
           <p
@@ -88,7 +126,7 @@ export default function HeroSection() {
         </div>
 
         <dl
-          className="enter mt-14 grid gap-6 border-t border-border pt-6 sm:grid-cols-3 lg:mt-20"
+          className="enter mt-14 grid gap-6 border-t border-border pt-6 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4"
           style={{ "--enter-delay": `${afterHeadline + 200}ms` }}
         >
           {hero.meta.map((item) => (

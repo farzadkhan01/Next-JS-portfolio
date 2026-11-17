@@ -28,15 +28,24 @@ export const personal = {
 
   // null until the owner confirms availability (CONTENT.md §4).
   availability: null,
+
+  // Owner's portrait (copied from the previous portfolio, re-encoded to WebP).
+  profileImage: {
+    src: "/images/profile/farzad-khan.webp",
+    alt: "Portrait of Farzad Khan",
+    width: 800,
+    height: 800,
+  },
 };
 
 export const hero = {
   headline: "Building Thoughtful Digital Experiences",
   description:
-    "I'm Farzad Khan, a Frontend Engineer focused on building modern web experiences with JavaScript, React, and Next.js. I turn ideas and designs into responsive, polished, and production-ready interfaces.",
+    "I'm Farzad Khan, a Frontend Engineer with full-stack JavaScript capabilities and 3+ years of professional frontend experience. I build modern web experiences with JavaScript, React, and Next.js, turning ideas and designs into responsive, polished, and production-ready interfaces.",
   primaryCta: { label: "Let's Work Together", href: "#contact" },
   secondaryCta: { label: "Explore My Work", href: "#projects" },
   meta: [
+    { label: "Experience", value: "3+ years in frontend" },
     { label: "Based in", value: "Pakistan" },
     { label: "Open to", value: "Remote opportunities" },
     { label: "Works with", value: "JavaScript, React, Next.js" },
@@ -63,7 +72,13 @@ export const contact = {
     "Whether you're an agency looking for frontend development support or a business planning a new digital experience, I'd be happy to hear about it.",
   ctaLabel: "Start a Conversation",
 
-  // Empty until verified. The previous portfolio lists an address — confirm
-  // before adding it here (CONTENT.md §1: owner will provide/verify).
-  email: "",
+  // Owner-supplied (2026-11-17).
+  email: "devbyfarzad.khan@gmail.com",
+
+  // Phone and WhatsApp stay EMPTY until the owner supplies a real number —
+  // the number provided so far was an all-zero placeholder and must not be
+  // published. Use international format with country code, e.g. "+923001234567".
+  // Each option renders (with its own icon and tel:/wa.me link) only when filled.
+  phone: "",
+  whatsapp: "",
 };

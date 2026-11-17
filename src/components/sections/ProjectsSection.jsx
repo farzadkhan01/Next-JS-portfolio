@@ -1,13 +1,14 @@
+import AdditionalProjectCard from "@/components/projects/AdditionalProjectCard";
 import ProjectCard from "@/components/projects/ProjectCard";
-import DevPlaceholder from "@/components/ui/DevPlaceholder";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { sections } from "@/data/sections";
-import { getFeaturedProjects } from "@/lib/projects";
+import { getAdditionalProjects, getFeaturedProjects } from "@/lib/projects";
 
 export default function ProjectsSection() {
   const { id, eyebrow, title } = sections.projects;
   const [lead, ...rest] = getFeaturedProjects();
+  const additional = getAdditionalProjects();
 
   if (!lead) return null;
 
@@ -26,11 +27,21 @@ export default function ProjectsSection() {
         )}
       </div>
 
-      <DevPlaceholder title="Project details pending verification" className="mt-6">
-        Project inclusion, screenshots, live and repository URLs, and confirmed features are pending.
-        Numbered covers stand in for screenshots. Technologies are listed only where confirmed from
-        each project’s source.
-      </DevPlaceholder>
+      {additional.length > 0 && (
+        <div className="mt-16 border-t border-border pt-12 lg:mt-20">
+          <h3 data-reveal className="text-h4">
+            {sections.projects.additionalTitle}
+          </h3>
+          <p data-reveal className="mt-2 max-w-prose text-small text-muted">
+            {sections.projects.additionalDescription}
+          </p>
+          <div className="mt-8 grid gap-4 lg:grid-cols-2">
+            {additional.map((project) => (
+              <AdditionalProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
+        </div>
+      )}
     </Section>
   );
 }

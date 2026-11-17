@@ -31,16 +31,28 @@ export default function ScrollReveals() {
         if (covers.length) gsap.set(covers, { opacity: 0, scale: 1.03 });
         root.dataset.revealState = "ready";
 
-        const show = (targets) =>
-          gsap.to(targets, {
+        // A batch can contain many elements at once (e.g. after jumping from
+        // the top straight to #contact). Elements already scrolled past are
+        // shown instantly; only on-screen ones animate, with the stagger capped
+        // so the last one never waits more than ~0.4 s.
+        const show = (targets) => {
+          const onScreen = [];
+          const passed = [];
+          for (const el of targets) {
+            (el.getBoundingClientRect().bottom < 0 ? passed : onScreen).push(el);
+          }
+          if (passed.length) gsap.set(passed, { opacity: 1, y: 0, scale: 1, overwrite: true });
+          if (!onScreen.length) return;
+          gsap.to(onScreen, {
             opacity: 1,
             y: 0,
             scale: 1,
             duration: DURATION.reveal,
             ease: EASE.gsap,
-            stagger: REVEAL.stagger,
+            stagger: Math.min(REVEAL.stagger, 0.4 / onScreen.length),
             overwrite: true,
           });
+        };
 
         // Elements near the very end of the page (e.g. the footer's last row)
         // can never scroll up to the normal threshold; reveal those as soon

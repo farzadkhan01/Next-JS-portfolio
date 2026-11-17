@@ -7,13 +7,25 @@ import { withRequiredFields } from "@/lib/content";
 const REQUIRED_FIELDS = ["slug", "title", "category", "shortDescription"];
 const GALLERY_FIELDS = ["src", "alt", "width", "height"];
 
-// Valid projects in display order.
+// Visible, valid projects. Main-showcase projects come first (in order), then
+// additional projects. `hasCaseStudy` is derived: only the main showcase has
+// /projects/[slug] pages.
 export function getProjects() {
-  return withRequiredFields(projects, REQUIRED_FIELDS).sort((a, b) => a.order - b.order);
+  const rank = (project) => (project.showcase === "main" ? 0 : 1);
+  return withRequiredFields(projects, REQUIRED_FIELDS)
+    .filter((project) => project.visible)
+    .map((project) => ({ ...project, hasCaseStudy: project.showcase === "main" }))
+    .sort((a, b) => rank(a) - rank(b) || a.order - b.order);
 }
 
+// Selected Projects (homepage) — the main showcase.
 export function getFeaturedProjects() {
-  return getProjects().filter((project) => project.featured);
+  return getProjects().filter((project) => project.showcase === "main");
+}
+
+// Additional Projects (homepage, secondary) — no case-study pages.
+export function getAdditionalProjects() {
+  return getProjects().filter((project) => project.showcase === "additional");
 }
 
 // Projects that have a /projects/[slug] page.

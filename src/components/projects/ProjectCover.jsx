@@ -3,7 +3,8 @@ import Image from "next/image";
 import { cn } from "@/lib/utils/cn";
 
 const ASPECTS = {
-  card: { image: "aspect-[16/10]", fallback: "aspect-[16/7]" },
+  // Same ratio for screenshots and designed covers so grid cards align.
+  card: { image: "aspect-[16/10]", fallback: "aspect-[16/10]" },
   hero: { image: "aspect-[16/10] lg:aspect-[16/8]", fallback: "aspect-[16/8] sm:aspect-[21/6]" },
 };
 
@@ -31,12 +32,12 @@ export default function ProjectCover({
     >
       {project.thumbnail ? (
         <Image
-          src={project.thumbnail}
-          alt={`${project.title} — project screenshot`}
+          src={project.thumbnail.src}
+          alt={project.thumbnail.alt ?? `${project.title} — website screenshot`}
           fill
           sizes={sizes}
           priority={priority}
-          className="object-cover transition-transform duration-500 ease-out-soft group-hover:scale-[1.02]"
+          className="object-cover object-top transition-transform duration-500 ease-out-soft group-hover:scale-[1.02]"
         />
       ) : (
         <div aria-hidden="true" className="absolute inset-0">

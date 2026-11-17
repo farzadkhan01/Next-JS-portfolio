@@ -221,9 +221,14 @@ To add or edit a project:
 2. Add or update the project object (start from `emptyCaseStudy` so every field exists).
 3. Provide a unique slug — it becomes the URL `/projects/<slug>`.
 4. Add verified project details. Case-study sections (problem, solution, role, features, decisions, challenges, learnings, scope) appear only when filled in.
-5. Add real screenshots under `public/images/projects/<slug>/` and list them in `gallery` with `src`, `alt`, `width`, and `height`. Set `thumbnail` for the homepage card and case-study hero.
-6. Add live or repository links where available.
-7. Set `hasCaseStudy: true` to generate the case-study page, then run `npm run dev` and check `/projects/<slug>`. In development, a dashed "Dev placeholder" box lists any content still missing (it never appears in production builds).
+5. Add real screenshots (WebP, 1440×900) under `public/images/projects/<slug>/` and list them in `gallery` with the `shot()` helper (`src`, `alt`, `caption`, `width`, `height`). Set `thumbnail: { src, alt }` for the card and case-study hero; leave it `null` to show the designed numbered cover.
+6. Add live or repository links where available. `liveLabel` overrides the "Live site" button text (Tour De Swat uses "Sign-in page").
+7. Choose where it appears:
+   - `showcase: "main"` — Selected Projects, with a case-study page at `/projects/<slug>`.
+   - `showcase: "additional"` — the secondary "Additional Projects" cards (no case study).
+   - `order` sorts within each group; `visible: false` hides the project everywhere (its route returns 404).
+   - `label` adds a badge such as "Concept project" or "Academic project".
+8. Run `npm run dev` and check the homepage and `/projects/<slug>`. In development, a dashed "Dev placeholder" box lists any content still missing (it never appears in production builds).
 
 Avoid hardcoding project information inside UI components.
 
@@ -244,6 +249,14 @@ Edit:
 `src/data/experience.js`
 
 Verify company names, titles, dates, and responsibilities before publishing.
+
+`experience` entries show `duration` (e.g. "3+ years") when no dates are set. `education` entries take `qualification`, `institution`, optional `location`, and `status` (`"completed"` or `"in-progress"`).
+
+## Updating Contact Details
+
+- Email, phone and WhatsApp: `src/data/personal.js` › `contact`. A method is shown only when its value is set. Phone and WhatsApp are empty on purpose — enter the real number (international format, e.g. `+92…`) to show the `tel:` and WhatsApp links.
+- Social profiles: `src/data/social-links.js`. An empty `url` hides the icon (LinkedIn is hidden until you add your profile URL).
+- Portrait: `public/images/profile/farzad-khan.webp`, configured in `personal.profileImage`.
 
 ---
 
@@ -409,15 +422,18 @@ Nothing has been deployed. The project is local-only by the owner's decision. Wh
 
 ## 1. Content (blocking — the site should not go live without these)
 
-- [ ] **(you)** Verified contact email → `src/data/personal.js` › `contact.email`. Without it the Contact section has no way to reach you.
-- [ ] **(you)** GitHub and LinkedIn URLs → `src/data/social-links.js`.
-- [ ] **(you)** Verified experience (company, title, dates, responsibilities) → `src/data/experience.js`. The Experience section and its nav link appear automatically once an entry exists.
+- [x] Contact email (`devbyfarzad.khan@gmail.com`), GitHub, Facebook and Instagram are set.
+- [ ] **(you)** Real phone/WhatsApp number → `src/data/personal.js` › `contact.phone` / `contact.whatsapp` (optional; hidden while empty).
+- [ ] **(you)** LinkedIn URL → `src/data/social-links.js` (optional; hidden while empty).
+- [x] Experience (CreaTech IT Solutions, Frontend Developer, 3+ years) and education are set.
+- [ ] **(you)** Optional: employment dates, responsibilities, and the BS IT institution → `src/data/experience.js`.
 - [ ] **(you)** Approve or edit the About biography (`src/data/personal.js` › `about`) and decide on the "20+ projects" statistic.
 - [ ] **(you)** Availability: set `personal.availability` only if you want a status shown.
 - [ ] **(you)** CV and experience certificate PDFs → `public/documents/`, then add entries to `src/data/documents.js`.
-- [ ] **(you)** Projects: confirm which to include; add real screenshots (`public/images/projects/<slug>/`, listed in `gallery` with `width`/`height`/`alt`, plus `thumbnail`), live URLs, public repository URLs, role, and verified features → `src/data/projects.js`.
-- [ ] **(you)** The Wild Oasis: confirm its origin and describe it accordingly (course-based work must be labelled as such).
-- [ ] **(you)** TutorHub: confirm its technologies.
+- [x] Projects: five selected projects and two additional projects with real screenshots and live URLs are set (TutorHub, The Wild Oasis and Nationwide Financial are hidden).
+- [x] Tour De Swat dashboard screenshots (personal data blurred) are in `public/images/projects/tour-de-swat/`.
+- [ ] **(you)** Review the Tour De Swat screenshots and change the dashboard admin password (it was shared in a chat session).
+- [ ] **(you)** Optional: public repository URLs and your role on each project → `src/data/projects.js`.
 - [ ] Remove the temporary hero notice: set `notice: ""` in `src/data/personal.js` (nothing renders when it is empty), or replace it with a message that has no relative time such as "today".
 - [ ] Run `npm run dev` and confirm no dashed "Dev placeholder" box remains on any page.
 

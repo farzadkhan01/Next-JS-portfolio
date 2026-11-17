@@ -270,9 +270,14 @@ Each project should have its own detailed case-study page.
 
 Examples:
 
-- `/projects/tutorhub`
-- `/projects/the-wild-oasis`
+- `/projects/cali-personal-injury-lawyer`
 - `/projects/review-top-lawyers`
+- `/projects/tour-de-swat`
+- `/projects/stori`
+- `/projects/world-comedia`
+
+Only projects with `showcase: "main"` get a case study. Additional projects
+(`showcase: "additional"`) and hidden projects (`visible: false`) return 404.
 
 Use a dynamic route powered by centralized project data.
 
@@ -392,31 +397,32 @@ Recommended structure:
 ```js
 export const projects = [
   {
-    slug: "tutorhub",
-    title: "TutorHub",
-    shortDescription: "A tutoring platform connecting students and tutors.",
-    description: "A detailed overview of the project.",
-    category: "SaaS Platform",
-    role: "Frontend / Full-Stack Development",
-    technologies: ["Next.js", "React", "JavaScript", "Supabase"],
-    thumbnail: "/images/projects/tutorhub/thumbnail.webp",
-    images: [
-      "/images/projects/tutorhub/dashboard.webp",
-      "/images/projects/tutorhub/booking.webp",
-    ],
+    slug: "example-project",
+    title: "Example Project",
+    category: "Legal Services / Website Development",
+    label: "Concept project",        // optional badge (e.g. "Academic project")
+    shortDescription: "One or two sentences for cards.",
+    technologies: ["Next.js", "React"], // verified from source only
+    highlights: [],                  // feature-card bullets
+    thumbnail: { src: "/images/projects/example-project/hero.webp", alt: "…" }, // or null → designed cover
+    gallery: [shot("example-project", "hero", "alt text", "caption")], // 1440×900 WebP
     liveUrl: "",
+    liveLabel: "",                   // overrides "Live site" (e.g. "Sign-in page")
     repositoryUrl: "",
-    featured: true,
-    status: "completed",
-    overview: "",
-    problem: "",
-    solution: "",
-    keyFeatures: [],
-    challenges: [],
-    outcomes: [],
+    status: "",                      // "completed" | "in-development"
+    visible: true,                   // false hides it everywhere (routes 404)
+    showcase: "main",                // "main" (case study) | "additional" (secondary card)
+    order: 1,                        // order within its showcase group
+    // case-study chapters: overview, problem, solution, role, contributions,
+    // features, decisions, challenges, learnings, scopeNotes, devNotes
   },
 ];
 ```
+
+Every entry is spread over `emptyCaseStudy`, so missing fields are always
+present and empty. `src/lib/projects.js` exposes `getFeaturedProjects()`
+(main), `getAdditionalProjects()` and `getCaseStudyProjects()`; components
+never read `src/data/projects.js` directly.
 
 This is a schema example.
 
@@ -479,6 +485,16 @@ Never link a placeholder document as an actual CV or certificate.
 ## social-links.js
 
 Centralize social media and professional profile URLs.
+
+Each entry is `{ label, url, icon }`; an empty `url` hides the link (LinkedIn
+is hidden until a URL is provided). Lucide has no brand icons, so
+`src/components/ui/BrandIcon.jsx` holds GitHub, Facebook, Instagram and
+WhatsApp paths copied from Simple Icons (CC0, not installed as a dependency)
+plus a LinkedIn "in" monogram.
+
+Phone and WhatsApp live in `personal.contact` (`phone`, `whatsapp`). The
+Contact section renders each method only when its value is set, as a
+`tel:` link and a `https://wa.me/<digits>` link respectively.
 
 ## Data Management Rules
 
@@ -621,6 +637,7 @@ Use CSS for simple hover and focus effects.
 - Never nest reveals: a list reveals either as a block or item by item (`CaseStudySection staggered`).
 - `REVEAL_INIT_SCRIPT` (`lib/animations/reveal.js`) sets `<html data-reveal-state="pending">` before paint only when JS runs and motion is allowed; CSS hides `[data-reveal]` only in that state. A 3 s timeout restores visibility if GSAP never takes over.
 - `ScrollReveals` re-runs per route (`useGSAP` with `dependencies: [pathname]`, `revertOnUpdate: true`), so each page's tweens and triggers are killed on navigation. `gsap.matchMedia` skips everything for reduced-motion visitors.
+- Batched reveals: elements in a batch that are already above the viewport are set to their final state instantly, and the stagger is capped (`min(REVEAL.stagger, 0.4 / count)`). Without this, jumping from the top straight to `#contact` queued ~30 elements and the target section stayed invisible for 1.5–3 s.
 - Elements are hidden with `opacity` only (never `visibility`), so they stay keyboard-focusable; a `focusin` listener reveals them immediately.
 - Elements GSAP animates must not have a CSS `transition` on `transform`. Tailwind v4 hover lifts use the separate `translate`/`scale` properties, so transition those instead.
 - Timing constants live in `lib/animations/animation-config.js`; plugins are registered once in `lib/animations/gsap.js`.

@@ -30,7 +30,7 @@ export default function ProjectCard({ project, index = 0, layout = "compact", he
         project={project}
         index={index}
         sizes={isFeature ? "(min-width: 1024px) 55vw, 100vw" : "(min-width: 768px) 50vw, 100vw"}
-        className={cn(isFeature && "lg:col-span-7 lg:aspect-auto lg:min-h-80")}
+        className={cn(isFeature && "lg:col-span-7 lg:self-center")}
       />
 
       <div
@@ -39,7 +39,15 @@ export default function ProjectCard({ project, index = 0, layout = "compact", he
           isFeature && "lg:col-span-5 lg:justify-center lg:px-0 lg:py-6 lg:pr-6",
         )}
       >
-        <p className="text-caption text-muted uppercase">{project.category}</p>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+          <p className="text-caption text-muted uppercase">
+            <span className="text-accent tabular-nums">{String(index + 1).padStart(2, "0")}</span>
+            <span aria-hidden="true"> — </span>
+            <span className="sr-only">, </span>
+            {project.category}
+          </p>
+          {project.label && <Badge variant="accent">{project.label}</Badge>}
+        </div>
         <Heading className={isFeature ? "text-h2" : "text-h3"}>{project.title}</Heading>
         <p className="text-pretty text-muted">{project.shortDescription}</p>
 

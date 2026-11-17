@@ -747,11 +747,11 @@ Do not suppress real errors just to produce a clean console.
 - [ ] Verify professional title. _(From CONTENT.md; owner confirmation pending)_
 - [ ] Verify biography. _(Suggested copy from CONTENT.md; owner review pending)_
 - [ ] Verify skills. _(From CONTENT.md with honest learning labels; owner confirmation pending)_
-- [ ] Verify experience dates and titles. _(No verified entries — section hidden in production)_
-- [ ] Verify project descriptions. _(From CONTENT.md; final inclusion and features pending)_
-- [ ] Verify project links. _(No live or repository URLs yet)_
-- [ ] Verify social links. _(None yet)_
-- [ ] Verify contact information. _(No email yet — production Contact section has no contact method)_
+- [ ] Verify experience dates and titles. _(Company, title and 3+ years set by owner; dates/responsibilities not provided, so none shown)_
+- [x] Verify project descriptions. _(Owner-supplied descriptions; features cross-checked against source/live sites — see Content Update notes)_
+- [x] Verify project links. _(7 live URLs return 200; no public repository URLs provided)_
+- [x] Verify social links. _(GitHub, Facebook, Instagram — exact owner URLs; LinkedIn hidden until provided)_
+- [x] Verify contact information. _(Email published; phone/WhatsApp hidden because only a placeholder number was supplied)_
 - [ ] Verify CV PDF. _(Not provided)_
 - [ ] Verify experience certificate PDF. _(Not provided)_
 - [x] Remove all development placeholders. _(0 in every production page; they render only in `npm run dev`)_
@@ -775,7 +775,7 @@ _Not performed — the project is local-only by owner decision. See README.md �
 ## Final Acceptance Criteria
 
 - [x] Production build succeeds.
-- [ ] All essential functionality works. _(Everything built works; the contact method cannot work until a verified email exists)_
+- [x] All essential functionality works. _(Email contact now works via `mailto:`)_
 - [ ] All published content is verified. _(See 7.5)_
 - [x] Desktop and mobile layouts work.
 - [x] Light and dark themes work.
@@ -797,7 +797,7 @@ _Not performed — the project is local-only by owner decision. See README.md �
 
 **Temporary notice (owner request, 2026-11-17):** the hero shows an optional notice, `personal.notice` in `src/data/personal.js`: "Portfolio update in progress — some sections are still being finalised." It renders as its own sentence below the eyebrow (small, muted, accent dot) and **renders nothing when the field is `""`** — verified with a build using an empty field. It replaced an earlier hand-edit that put a time-relative message ("by 8:00 PM today") inside the eyebrow with `<br />` tags; that text no longer exists in source or build. The eyebrow now stays on one line at every width from 320 to 1920 px (measured); below 375 px its accent rule is 16 px with an 8 px gap instead of 24/12 px. Checked by screenshot in light and dark at 320, 375 and 1440 px. **Remove or empty the notice before launch.**
 
-**Final re-run on the build with the notice (Chrome 157 + Edge 157, widths 320–1920 incl. 1920):** see the final QA report; results recorded below once complete.
+**Final re-run on the build with the notice (Chrome 157.0.8103.51 + Edge 157.0.4341.60, 9 widths 320–1920):** identical results in both browsers — routes 21/21; responsive 126/126 (9 widths × 2 themes × 7 pages) with 0 overflow, clipping, overlap, sub-24 px targets or broken images; anchors 8/8, back link and 3 deep links land at the header offset; active indicator correct; 26/26 reveals complete; theme toggle, icons and persistence correct; mobile menu (focus, Escape, link, outside click) correct; 5 case studies with prev/next and 2 related each; 404s correct; keyboard: 3 layouts, every stop visible, outlined and unobscured, skip link focuses `main`; axe 28/28 audits with 0 violations, one h1 and no skipped levels; reduced motion fully static; 0 unexpected console messages or failed requests.
 
 **Test-harness false positives identified (not site bugs):**
 - "Related projects: none" — the harness selector expected the grid to be a sibling of the heading, but the heading sits inside a `<header>`; with the correct selector every case study shows 2 related projects.
@@ -807,6 +807,29 @@ _Not performed — the project is local-only by owner decision. See README.md �
 - "Back link didn't scroll" in the first run was **real** (fixed above), confirmed by isolating smooth scrolling.
 
 **Performance (local, headless Chrome; 3 runs, median [range]):** LCP desktop — home 0.94 s, case study 0.22 s, 404 0.21 s; LCP throttled mobile (4× CPU, slow 4G) — home 2.47 s [2.09–5.70], case study 1.96 s [1.27–2.53], 404 1.04 s. CLS ≤ 0.0011 everywhere. JS 241 KB transferred per route; one 47 KB preloaded font; no content images yet. Interaction latency (throttled mobile): theme toggle and menu 0.17–0.70 s, first theme toggle up to 3.4 s in one run — high variance; real-device check needed. Lighthouse not available.
+
+## Portfolio Content & Projects Update (2026-11-17)
+
+_Owner-requested content update within Phase 7 — not a new phase. Local only: nothing deployed, uploaded, pushed or committed._
+
+**Projects.** Selected Projects, in order: Cali Personal Injury Lawyer (Concept project), Review Top Lawyers, Tour De Swat (Internal tool, in development), STORI, World CoMedia — each with a case study at `/projects/<slug>`. A visually secondary "Additional Projects" block shows Printing New York and School B (Academic project), with no case studies. TutorHub, The Wild Oasis and Nationwide Financial are `visible: false`; their routes and OG images return 404 and they are absent from the build output. New data fields: `visible`, `showcase`, `order`, `label`, `liveLabel`, `thumbnail: { src, alt }`; new selector `getAdditionalProjects()`; new component `AdditionalProjectCard`.
+
+**Verification of facts.** Technologies come from actual imports in the local source (Cali, Review Top Lawyers, World CoMedia, Tour De Swat) or from the scripts the live site loads (STORI, Printing New York, School B: Bootstrap). Tour De Swat features are limited to those confirmed in its local source; its public URL is only a sign-in page, so it has no screenshot (designed cover) and its link is labelled "Sign-in page". Screenshots avoid Review Top Lawyers' sample/test records and STORI's contact details.
+
+**Images.** 16 real screenshots (WebP 1440×900, 27–123 KB) under `public/images/projects/<slug>/`; portrait `public/images/profile/farzad-khan.webp` (800×800, 36 KB; source PNG left untouched — checksum verified). All have alt text and fixed aspect ratios (no layout shift).
+
+**Experience & Education.** Frontend Developer — CreaTech IT Solutions — 3+ years. Education: Matriculation (Al-Madina Model School & College, Swat), FSc — Computer Science (Jahanzeb College), BS IT (in progress). No dates or responsibilities invented.
+
+**Contact.** Email published (`mailto:`); GitHub, Facebook, Instagram icons (Simple Icons paths, `target="_blank" rel="noopener noreferrer"`, accessible labels). Phone (`tel:`), WhatsApp (`wa.me`) and LinkedIn are configurable but hidden — the supplied number was a placeholder and no LinkedIn URL was given.
+
+**Bugs found and fixed during this update:**
+- Jumping from the top straight to `#contact` left the Contact panel invisible for 1.5–3 s: the reveal batch staggered ~30 elements. Passed elements are now set instantly and the stagger is capped (panel visible within ~0.5 s on mobile, fully by ~1.5 s on desktop).
+- The feature project card cropped the left of its screenshot on large screens (`lg:aspect-auto`); covers now keep 16:10.
+- The Tour De Swat designed cover used a different ratio than its grid neighbour; now 16:10.
+
+**QA re-run (Chrome 157 + Edge 157, local production server):** identical results in both browsers — routes 27/27 correct (5 case studies 200, 5 old/additional slugs 404); responsive 112/112 rows (7 pages × 8 widths × 2 themes) with 0 overflow, clipping or overlap; 0 failed images or failed requests after a full scroll at 375 and 1440 px; theme toggle and persistence correct; 37/37 reveals complete; prev/next and related links correct on all 5 case studies; deep links and back link land at the header offset; axe 0 violations in 28 audits per browser, one h1 and no skipped heading levels; reduced motion fully static; console errors only from the intentional 404 probes. `npm run lint` and `npm run build` pass.
+
+**Tour De Swat dashboard inspection (2026-11-16, owner-requested).** The owner signed in to the live dashboard in the in-app browser (credentials were never entered or stored by the assistant). Inspected 7 pages — Dashboard, Trips & Guests, Expenses (direct + indirect overhead tabs), Investments (partnerships + transaction ledger tabs), Settings (fleet, circuits & routes, overhead categories, team & access), global search, and the printable invoice — plus the trip detail drawer, the New Trip form and the Quick Action hub (opened only; nothing was submitted, edited or deleted). Captured 12 views; published 10 to `public/images/projects/tour-de-swat/` (8 desktop 1440×900, stitched from 2× magnified quarters for sharp text; 2 mobile 585×1266). Excluded: the New Trip form (duplicate of the Quick Action booking form), Team & Access (signed-in account and password form) and the print invoice (company and guest contact details). All guest, partner and account names, emails and phone numbers are blurred. The case study now uses the dashboard screenshot as its cover, a confirmed feature list, an overview and a 9-image gallery; `ProjectGallery` shows portrait screenshots at phone width. The "no screenshot" dev placeholder was removed. Lint and build pass; the case study and homepage card were checked at 1440 (light) and 375 (dark): 0 failed images or requests, 0 console errors, no overflow.
 
 ---
 
